@@ -7,3 +7,11 @@ def HandleOrderRequest(order):
         raise Exception("Invalid order data")
     orderModel = OrderModel(order)
                   
+
+
+
+def ValidateOrderRequest(order):
+	if order == {}:
+		raise Exception("Invalid order data")
+	print order
+	#order

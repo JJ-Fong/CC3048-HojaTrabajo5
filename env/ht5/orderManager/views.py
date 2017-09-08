@@ -41,3 +41,18 @@ def create_order(request):
         except Exception, e:
             return Response({"error":str(e)}, status=status.HTTP_400_BAD_REQUEST)
         return HttpResponse('Hello World')
+
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def validate_order(request):
+    if request.method == 'POST':
+        try:
+            data = JSONRenderer().render(request.data)
+            stream = BytesIO(data)
+            order_model = JSONParser().parse(stream)
+            order = ValidateOrderRequest(order_model)
+            #serialized_obj = serializers.serialize('json', [ transaction, ])
+            #return Response(serialized_obj, status=status.HTTP_202_ACCEPTED)
+        except Exception, e:
+            return Response({"error":str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse('Responder con JSON')
