@@ -59,3 +59,4 @@ def validate_order(request):
         # jsonobj = json.loads(order)
         # return HttpResponse(jsonobjn)
         return HttpResponse(order)
+
