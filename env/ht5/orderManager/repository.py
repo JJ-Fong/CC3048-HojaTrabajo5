@@ -10,12 +10,14 @@ def CreateNewClient(client):
 		raise Exception(err)
 
 
-def FindQtyOfIngredientByRecipeGui(guid,cant):
+def FindQtyOfIngredientByRecipeGui(guid):
     try:
         ing = Ingredient.objects.get_ingredient_qty(guid)
         return ing
     except:
-		raise Exception("Invalid ingredient, there is no ingredient with dat recipe guid.. biatch.")
+		# raise Exception("Invalid ingredient, there is no ingredient with dat recipe guid.. biatch.")
+		ing = 0
+		return ing
 
 def UpdateQtyOfIngredientByRecipeGui(guid,cant):
     try:
@@ -29,7 +31,9 @@ def FindPriceInRecipe(guid):
 		precio = Recipe.objects.find_price_in_recipe_by_guid(guid)
 		return precio
 	except:
-		raise Exception("There is no price for this product.")
+		# raise Exception("There is no price for this product.")
+		precio = 0.0
+		return precio
 
 def CreateNewOrder(order):
 	try:

@@ -135,7 +135,7 @@ class IngredientManager(models.Manager):
 
 	def update_ingredient_qty(self,guid, cant):
 		ing = self.get(recipe_guid=guid)
-		ing.qty = cant
+		ing.qty = float(cant)
 		ing.save()
 		return ing
 
