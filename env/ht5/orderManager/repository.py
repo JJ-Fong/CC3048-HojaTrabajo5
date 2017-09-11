@@ -47,3 +47,20 @@ def CreateNewDetail(detail):
 		err = e.message.encode('utf-8')
 		raise Exception(err)
 
+
+def GetRecipeIngredients(recipe):
+	try:
+		ingredients = Ingredient.objects.find_ingredient_by_recipe_guid(recipe)
+		return ingredients
+	except IntegrityError as e:
+		err = e.message.encode('utf-8')
+		raise Exception(err)
+
+
+def GetRecipeGuid(recipe_name):
+	try:
+		recipe = Recipe.objects.find_guid_by_name(recipe_name)
+		return recipe
+	except IntegrityError as e:
+		err = e.message.encode('utf-8')
+		raise Exception(err)

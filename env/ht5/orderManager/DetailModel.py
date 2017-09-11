@@ -22,3 +22,10 @@ class DetailModel:
         if detail.qty == None or detail.qty < 0:
             raise Exception("detail QTY is invalid")
         return True
+
+    def toString(self):
+        print self.detail_guid
+        print self.order_guid
+        print self.product_guid
+        print self.qty
+        print self.value

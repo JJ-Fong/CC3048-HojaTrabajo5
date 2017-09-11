@@ -72,7 +72,13 @@ class RecipeManager(models.Manager):
 			return recipe
 		except Exception, e:
 			raise Exception("Price not defined: " + str(e))
-	    
+
+	def find_guid_by_name(self,recipe_name):
+		try:
+			recipe = self.get(name = recipe_name)
+			return recipe.recipe_guid
+		except Exception, e:
+			raise Exception("GUID not found: "+ str(e))
 
 class Recipe(models.Model):
 	recipe_guid = models.CharField(max_length=250, primary_key=True, unique=True)
@@ -113,8 +119,8 @@ class IngredientManager(models.Manager):
 
 	def find_ingredient_by_recipe_guid(self, guid):
 	    try:
-	        ingredient_model = self.get(recipe_guid=guid)
-	        return ingredient_model
+	    	ingredient_model = self.filter(recipe_guid = guid).values_list('name', flat=True)
+	    	return ingredient_model
 	    except Exception, e:
 	        raise Exception("Recipe GUID NOT FOUND: " + str(e))
 
