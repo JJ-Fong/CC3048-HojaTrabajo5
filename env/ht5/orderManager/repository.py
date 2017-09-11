@@ -1,4 +1,5 @@
 from models import Client, Order, Recipe, OrderDetail, Ingredient
+from django.db import IntegrityError
 
 def CreateNewClient(client):
 	try:
@@ -29,3 +30,20 @@ def FindPriceInRecipe(guid):
 		return precio
 	except:
 		raise Exception("There is no price for this product.")
+
+def CreateNewOrder(order):
+	try:
+		order_model = Order.objects.create_new_order(order)
+		return order_model
+	except IntegrityError as e:
+		err = e.message.encode('utf-8')
+		raise Exception(err)
+
+def CreateNewDetail(detail):
+	try:
+		detail_model = OrderDetail.objects.create_new_order_detail(detail)
+		return detail_model
+	except IntegrityError as e:
+		err = e.message.encode('utf-8')
+		raise Exception(err)
+

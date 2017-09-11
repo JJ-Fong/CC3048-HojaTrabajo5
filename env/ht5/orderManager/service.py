@@ -9,4 +9,4 @@ def HandleOrderRequest(order):
     order_model = CreateNewOrder(orderModel)
     for det in orderModel.detail:
     	detail_model = CreateNewDetail(det)
-
+    	print det

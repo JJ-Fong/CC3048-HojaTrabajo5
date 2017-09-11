@@ -2,20 +2,23 @@ import uuid
 
 class DetailModel:
     detail_guid = str(uuid.uuid4())
-    product = ""
+    order_guid = ""
+    product_guid = ""
     qty = 0.0
-    price = 0.0 
+    value = 0.0 
 
-    def __init__(self, ingredient):
-        for key,value in ingredient.items():
-            if (key == 'name'):
-                self.name = value
+    def __init__(self, duple):
+        detail, order_guid = duple
+        self.order_guid = order_guid
+        for key,value in detail.items():
+            if (key == 'product'):
+                self.product_guid = value
             elif (key == 'qty'):
                 self.qty = value 
 
-    def ValidateIngredient(self, ingredient):
-        if ingredient.name == None or ingredient.name == "":
-            raise Exception("Ingredient NAME is invalid")
-        if ingredient.qty == None or ingredient.qty < 0:
-            raise Exception("Ingredient QTY is invalid")
+    def ValidateDetail(self, detail):
+        if detail.name == None or detail.name == "":
+            raise Exception("detail NAME is invalid")
+        if detail.qty == None or detail.qty < 0:
+            raise Exception("detail QTY is invalid")
         return True

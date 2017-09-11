@@ -47,7 +47,7 @@ class OrderManager(models.Manager):
 class Order(models.Model):
 	order_guid = models.CharField(max_length=250, primary_key=True, unique=True)
 	status = models.CharField(max_length=100)
-	client = models.ForeignKey(Client, on_delete=models.CASCADE)
+	client = models.CharField(max_length=250, null=True)
 	objects = OrderManager() 
 
 class RecipeManager(models.Manager):
@@ -96,11 +96,11 @@ class OrderDetailManager(models.Manager):
 	        raise Exception("ORDER GUID NOT FOUND: " + str(e))
 
 class OrderDetail(models.Model):
-	order_guid = models.ForeignKey(Order, on_delete=models.CASCADE)
-	product_guid = models.ForeignKey(Recipe)
+	order_guid = models.CharField(max_length=250, null=True)
+	product_guid = models.CharField(max_length=250, null=True)
 	qty = models.FloatField()
 	value = models.FloatField()
-	objects = OrderManager() 
+	objects = OrderDetailManager() 
 
 
 class IngredientManager(models.Manager):
@@ -134,7 +134,7 @@ class IngredientManager(models.Manager):
 		return ing
 
 class Ingredient(models.Model):
-	recipe_guid = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+	recipe_guid = models.CharField(max_length=250, null=True)
 	name = models.CharField(max_length=100)
 	qty = models.FloatField()
 	objects = IngredientManager() 

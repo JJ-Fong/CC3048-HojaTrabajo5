@@ -1,14 +1,15 @@
 import uuid
+from DetailModel import * 
 
 class OrderModel:
 	order_guid = str(uuid.uuid4())
 	address = ""
 	status = "" 
 	store = ""
+	client = None 
 
 	def __init__(self, order):
-		self.products = []
-		self.qty = []
+		self.detail = []
 		for k, v in order.items():
 			if k == 'order': 	
 				for key, value in v.items():
@@ -17,13 +18,9 @@ class OrderModel:
 						self.address = value
 					if (key == 'products'):
 						for product in value:
-							for pkey, pvalue in product.items():
-								if (pkey == 'qty'):
-									self.qty.append(pvalue)
-								if (pkey == 'product'):
-									print pvalue
-									self.products.append(pvalue)
-						print self.qty, self.products
+							detInfo = (product, self.order_guid)
+							detailModel = DetailModel(detInfo)
+							self.detail.append(detailModel)	
 					if (key == 'store'):
 						self.store = value
 					if (key == 'status'):
