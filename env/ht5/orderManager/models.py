@@ -64,7 +64,15 @@ class RecipeManager(models.Manager):
 	        return recipe_model
 	    except Exception, e:
 	        raise Exception("RECIPE GUID NOT FOUND: " + str(e))
-    
+
+	def find_price_in_recipe_by_guid(self,guid):
+		try:
+			recipe = self.get(recipe_guid = guid)
+			recipe = recipe.price
+			return recipe
+		except Exception, e:
+			raise Exception("Price not defined: " + str(e))
+	    
 
 class Recipe(models.Model):
 	recipe_guid = models.CharField(max_length=250, primary_key=True, unique=True)
@@ -109,6 +117,21 @@ class IngredientManager(models.Manager):
 	        return ingredient_model
 	    except Exception, e:
 	        raise Exception("Recipe GUID NOT FOUND: " + str(e))
+
+	def get_ingredient_qty(self,guid):
+		try:
+			ingredient_model = self.get(recipe_guid = guid)
+			ingredient_model = ingredient_model.qty
+			# ingredient_model = self.filter(qty=cant).aggregate(Sum("qty"))
+			return ingredient_model
+		except Exception, e:
+			raise Exception("Cannot filter by recipe guid: " + str(e))
+
+	def update_ingredient_qty(self,guid, cant):
+		ing = self.get(recipe_guid=guid)
+		ing.qty = cant
+		ing.save()
+		return ing
 
 class Ingredient(models.Model):
 	recipe_guid = models.ForeignKey(Recipe, on_delete=models.CASCADE)

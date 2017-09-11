@@ -51,8 +51,10 @@ def validate_order(request):
             stream = BytesIO(data)
             order_model = JSONParser().parse(stream)
             order = ValidateOrderRequest(order_model)
-            #serialized_obj = serializers.serialize('json', [ transaction, ])
-            #return Response(serialized_obj, status=status.HTTP_202_ACCEPTED)
+            # serialized_obj = serializers.serialize('json', [ order, ])
+            # return Response(serialized_obj, status=status.HTTP_202_ACCEPTED)
         except Exception, e:
             return Response({"error":str(e)}, status=status.HTTP_400_BAD_REQUEST)
-        return HttpResponse('Responder con JSON')
+        # jsonobj = json.loads(order)
+        # return HttpResponse(jsonobjn)
+        return HttpResponse(order)
