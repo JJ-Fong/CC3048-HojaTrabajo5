@@ -36,12 +36,11 @@ def create_order(request):
             stream = BytesIO(data)
             order_model = JSONParser().parse(stream)
             order = HandleOrderRequest(order_model)
-            print order
             #serialized_obj = serializers.serialize('json', [ transaction, ])
             #return Response(serialized_obj, status=status.HTTP_202_ACCEPTED)
         except Exception, e:
             return Response({"error":str(e)}, status=status.HTTP_200_ACCEPTED)
-        return HttpResponse(order)
+        return HttpResponse("{\"status\": \"RECEIVED\" }")
 
 @csrf_exempt
 @api_view(['GET', 'POST'])

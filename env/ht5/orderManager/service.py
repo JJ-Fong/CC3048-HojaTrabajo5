@@ -26,6 +26,7 @@ def HandleOrderRequest(order):
 	response['store'] = 'Tienda01'
 	response['order'] = orderModel.order_guid
 	response['ingredients'] = ingredients
+	print response
 	return response
 
 def ValidateOrderRequest(order):
@@ -70,6 +71,7 @@ def ValidateOrderRequest(order):
 				
 	if (respond):
 		# order = '{"nit":"5464646-3","token" : "df6d11e18af84c7eb3bbcc8b7d7a9e47","orderid" : "lfakjsdlfkajsdf","amount":100.52}'
+		print json_to_return
 		return json_to_return
 	else:
 		return ""
